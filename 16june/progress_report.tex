@@ -1,0 +1,380 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{breqn}
+\usepackage[backend=biber,style=numeric,sorting=none,isbn=false,doi=false,url=false,]{biblatex}\addbibresource{bibliography.bib}
+\usepackage{wrapfig}
+\usepackage{wasysym}
+\usepackage{enumitem}
+\usepackage{adjustbox}
+\usepackage{ragged2e}
+\usepackage[svgnames,table]{xcolor}
+\usepackage{tikz}
+\usepackage{longtable}
+\usepackage{changepage}
+\usepackage{setspace}
+\usepackage{hhline}
+\usepackage{multicol}
+\usepackage{tabto}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{mwe}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage[toc,page]{appendix}
+\usepackage[hidelinks]{hyperref}
+\usetikzlibrary{shapes.symbols,shapes.geometric,shadows,arrows.meta}
+% \tikzset{>={Latex[width=1.5mm,length=2mm]}}
+\usepackage{flowchart}\usepackage[paperheight=11.69in,paperwidth=8.27in,left=1.0in,right=1.0in,top=1.0in,bottom=1.0in,headheight=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\TabPositions{0.5in,1.0in,1.5in,2.0in,2.5in,3.0in,3.5in,4.0in,4.5in,5.0in,5.5in,6.0in,}
+
+\urlstyle{same}
+
+
+ %%%%%%%%%%%%  Set Depths for Sections  %%%%%%%%%%%%%%
+
+% 1) Section
+% 1.1) SubSection
+% 1.1.1) SubSubSection
+% 1.1.1.1) Paragraph
+% 1.1.1.1.1) Subparagraph
+
+
+\setcounter{tocdepth}{5}
+\setcounter{secnumdepth}{5}
+
+
+ %%%%%%%%%%%%  Set Depths for Nested Lists created by \begin{enumerate}  %%%%%%%%%%%%%%
+
+
+\setlistdepth{9}
+\renewlist{enumerate}{enumerate}{9}
+		\setlist[enumerate,1]{label=\arabic*)}
+		\setlist[enumerate,2]{label=\alph*)}
+		\setlist[enumerate,3]{label=(\roman*)}
+		\setlist[enumerate,4]{label=(\arabic*)}
+		\setlist[enumerate,5]{label=(\Alph*)}
+		\setlist[enumerate,6]{label=(\Roman*)}
+		\setlist[enumerate,7]{label=\arabic*}
+		\setlist[enumerate,8]{label=\alph*}
+		\setlist[enumerate,9]{label=\roman*}
+
+\renewlist{itemize}{itemize}{9}
+		\setlist[itemize]{label=$\cdot$}
+		\setlist[itemize,1]{label=\textbullet}
+		\setlist[itemize,2]{label=$\circ$}
+		\setlist[itemize,3]{label=$\ast$}
+		\setlist[itemize,4]{label=$\dagger$}
+		\setlist[itemize,5]{label=$\triangleright$}
+		\setlist[itemize,6]{label=$\bigstar$}
+		\setlist[itemize,7]{label=$\blacklozenge$}
+		\setlist[itemize,8]{label=$\prime$}
+
+\setlength{\topsep}{0pt}\setlength{\parindent}{0pt}
+
+%%%%%%%%%%%%%%%%%%%% Document code starts here %%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+{
+\section{Introduction}
+Markov chain Monte Carlo (MCMC) methods comprise a class of algorithms for sampling from a probability distribution. By constructing a Markov chain that has the desired distribution as its equilibrium distribution, one can obtain a sample of the desired distribution by observing[clarification needed] the chain after a number of steps. The more steps there are, the more closely the distribution of the sample matches the actual desired distribution. For a thermodynamic system in a given thermal state, a microstate is a microscopic (i.e., describing the state of each element of the system) configuration that the system may occupy with a certain probability. On the other hand, a macrostate is defined by one or more overall macroscopic properties, such as temperature, pressure, energy, etc. There are thus several possible microstates accounting for the same macrosystem. To calculate the value of an observable of the system the standard approach uses Monte Carlo methods to sample configurations from the partition function (the function that represents the theory of the model) and on these configurations expectation values of observables are calculated. However, this computational strategy has several drawbacks, the most critical being: \\
+To accurately estimate the value of an observable we need large number of configurations. and generating a configuration from high dimensional space could be quite expensive.\par
+When the number of required configuration is quite large Generative modelling can be used. “Generative modeling” is a broad area of machine learning which deals with models of distributions P(X), defined over data-points X in some potentially high-dimensional space X. The goal of generative modeling is to represent, learn and sample from high-dimensional probability distributions. Given data x and label y, generative models capture the joint probability distribution p(x,y). We now explore the potential of generative techniques to generate configurations for a 2d XY model. Operatively, we adopt the Variational AutoEncoders (VAE) network for our study.
+In other words, we have to model the intractable distribution of configurations which depend on a single parameter i.e. Temperature. Hence the problem reduces to an approximate inference and learning problem with a single and continuous latent variable.
+
+\section{Evaluation procedure}
+To evaluate the correctness of our samples generated by the model for a given value of temperature, we compare the \begin{itemize}
+    \item Distribution of Magnetization, Energy of generated samples with that of data.
+    \item Order parameter which is the expected value of magnitude of magnetization of our samples
+    \item Direction of magnetization of generated samples to check correlation between samples. It may be possible that the magnetization of all the samples may point in a specific direction.
+\end{itemize}
+\section{Experiment}
+For training purposes we had used 2d 8x8 lattices (ferromagnetic) generated using Metropolis-Hasting algorithm for 32 different temperatures between 0.1 and 2 each temperature having 10,000 samples. The distribution of energies for different temperatures  and also the average values of magnetization are shown below.
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 1 starts here %%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\begin{Center}
+		\includegraphics[width=6.27in,height=3.6in]{./Figure_1.png}
+		 \caption{Distribution of Energy of data at different temperature.}
+	\end{Center}
+\end{figure}
+\begin{figure}[H]
+	\begin{Center}
+		\includegraphics[width=6.27in,height=3.5in]{./Figure_2.png}
+		 \caption{Magnetization vs Temperature of our data.}
+	\end{Center}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 1 Ends here %%%%%%%%%%%%%%%%%%%%
+% The various on which our algorithm has been tested are
+% \textbf{standard VAE} The values of our any observables our distribution depends only on single variable temperature and hence intuitively only a single latent variable should be sufficient for our samples. But to generate samples which \\
+\textbf{Conditional-VAE(CVAE)}}\par
+We want our model to be such that when given an input X the output Y which it produces should maximize the probability of the ground truth. Since our input of latent variable is now conditioned by X we modify the original VAE objective by conditioning it with respect to X.
+\begin{equation}
+    \begin{split}
+\log P(Y|X) - & D_{KL}[Q(z|Y,X)||P(z|Y,X)]  = \\ &E_{z \sim Q(·|Y,X)}[log P(Y|z,X)] - \beta D_{KL}[Q(z|Y,X)||P(z|X)]
+    \end{split}
+\end{equation}
+The structure of the model used is shown below
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 1 starts here %%%%%%%%%%%%%%%%%%%%
+\begin{figure}[!ht]
+	\begin{Center}
+		\includegraphics[width=6.27in,height=3.79in]{./media/image2.png}
+		\caption{Architecture of CVAE}
+	\end{Center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 1 Ends here %%%%%%%%%%%%%%%%%%%%
+The input Y to encoder is a 65x1 matrix (8x8 matrix and given temperature X). Encoder consists of 2 hidden layers which encode the information into a single dimensional latent space parametrized by  $N(\mu(Y,X)$,$\Sigma(Y,X))$. We sample the value of Z using “reparameterization trick” which is then fed into decoder along with the temperature. The output Y of the decoder are $\mu$ and $\Sigma$ is obtained by sampling from $N(\mu(X,Z), \Sigma(X,Z))$.
+\par Parameters are updated using stochastic gradient ascent where gradients are computed by differentiating the lower bound estimator $\nabla_{\theta,\phi}L(\theta, \phi; X)$ , plus a small weight decay term corresponding to a prior $p(\theta) = N(0,I)$. Optimization of this objective is equivalent to approximate MAP estimation, where the likelihood gradient is approximated by the gradient of the lower bound.\par The distribution of Magnetization, energy for all the temperatures is shown in this \href{https://drive.google.com/drive/folders/1uW0mRT_8JHZIB2RUIUFo09zFsNycdJfJ?usp=sharing}{\textcolor[HTML]{1155CC}{\uline{video}}}. In this video, Green corresponds to distribution of original MC samples, and blue corresponds to VAE generated samples. Temperature is increased from 0.1 to 2 frame by frame. The different subplots corresponds to
+\begin{itemize}
+    \item 1st subplot : Distribution of magnetization.
+    \item 2nd subplot : Direction of Magnetization of our generated samples.(Just to check correlation).
+    \item 3rd subplot : Distribution of energy.
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 1 starts here %%%%%%%%%%%%%%%%%%%%
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined0.png}}
+        \caption{Temp = 0.1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined580645.png}}
+        \caption{Temp = 0.58}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined967742.png}}
+        \caption{Temp = 0.96}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined1354839.png}}
+        \caption{Temp = 1.35}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined1677419.png}}
+        \caption{Temp = 1.67}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined2000000.png}}
+        \caption{Temp = 2.00}
+    \end{subfigure}
+    \hfill
+    \caption{Histograms comparing MC and VAE samples at different temperatures. Green corresponds to distribution of original MC samples, and blue corresponds to CVAE generated samples.}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 1 starts here %%%%%%%%%%%%%%%%%%%%
+\subsection{Interpretation of results}
+\textbf{Magnetization:}\par
+\begin{itemize}
+    \item At low temperature of 0.1 our model failed to produce perfectly ordered states with net-magnetization approaching 1.
+    \item A large error in the distribution of magnetization was found near critical temperatures.
+\end{itemize}
+\vspace{\baselineskip}
+\textbf{Magnetization direction}\par
+The net magnetization of our generated samples also pointed more or less in the same direction. This means our samples are highly correlated.\par
+\vspace{\baselineskip}
+\textbf{Energy}\par
+For all temperatures some offset was always present between the distributions of energy.\par
+\vspace{\baselineskip}
+\textit{Possible Reasons for this could be}:\par
+
+\begin{enumerate}
+	\item \textit{Exploding Latent Space problem}: A low value of $ \beta $  ($ \beta $ =1) caused the support of our conditional distribution of Z given X (temperature) to be disjoint from each other as shown in figure. This is a problem with ELBO objective and can be prevented by increasing the value of $ \beta $ , which puts stronger pressure on the posterior means to match the unit Gaussian prior (\href{https://arxiv.org/pdf/1804.03599.pdf}{\textcolor[HTML]{1155CC}{\uline{paper}}}).\\
+A higher value of $ \beta $  ($ \beta $ =50) causes the posterior means to come close to each other. This cannot fix the problem because \textit{D\textsubscript{KL}(Q(Z$ \vert $ X) $ \vert $ $ \vert $  P(X))} penalizes mutual information between Z and X, so a large value of $ \beta $  strongly encourages Z to be independent of X, resulting in more severe under-utilization of the latent code (\href{https://arxiv.org/pdf/1706.02262v2.pdf}{\textcolor[HTML]{1155CC}{\uline{paper}}}). That’s why for a high value of beta our decoder failed to reconstruct good samples. The results shown above were obtained at $\beta = 2.5$.\par
+
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 2 starts here %%%%%%%%%%%%%%%%%%%%
+\begin{figure}[h!]
+	\begin{Center}
+		\includegraphics[width=6.27in,height=3.44in]{./media/image1.png}
+		\caption{Distribution of Latent variable at different temperatures}
+	\end{Center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 2 Ends here %%%%%%%%%%%%%%%%%%%%
+\item Our model is free to neglect the conditional information of temperature that is our decoder is free to ignore the conditional information. That is we need to maximise the mutual information between the conditional variables and the output X of the decoder. This approach is the VAE counterpart of the Info-GAN \href{https://arxiv.org/pdf/1606.03657.pdf}{\textcolor[HTML]{1155CC}{\uline{paper}}}.
+\end{enumerate}\par
+\textbf{Possible Solutions:}\par
+\href{https://arxiv.org/pdf/1706.02262v2.pdf}{\textcolor[HTML]{1155CC}{\uline{paper}}} \href{https://arxiv.org/pdf/1706.02262.pdf}{\textcolor[HTML]{1155CC}{\uline{paper}}} proposed the following solution to the above problem.\par
+First by adding a scaling parameter  \(  \beta  \) to the divergence between \textit{q\textsubscript{$ \varphi $ }(Z)} and \textit{p(Z)} to increase its weight and counteract the imbalance between X and Z. Next we add a mutual information maximization term that prefers high mutual information between X and Z. This encourages the model to use the latent code and avoids the information preference problem. We arrive at the following objective.\par
+\begin{equation}
+ L_{InfoVAE} = - \beta D_{KL}(q_{\varphi } ( z ) \vert \vert p(z))- E _{q ( z ) } [ D_{KL}( q _{ \varphi }~ ( x \vert z ) ~\vert \vert p_{ \theta } ( x \vert z ) )]+ \alpha I_{q} ( x; z )
+\end{equation}
+where \textit{I\textsubscript{q}(x; z)} is the mutual information between x and z under the distribution $q_\phi(x, z)$.\par
+\vspace{\baselineskip}
+The first term $D_{KL}( q_\varphi( z)\vert\vert p(z))$ is not tractable to compute, since we only know  $ q_{\varphi}(z\vert x)$. But we can replace the KL divergence with any other divergence that we can efficiently optimize over. Changing the divergence may alter the empirical behavior of the model but it can be shown that replacing D\textsubscript{KL }with any (strict) divergence is still correct and also guarantees convergence.\par
+
+\subsection{Maximum Mean Discrepancy (MMD) objective:}
+Maximum-Mean Discrepancy (MMD) is a framework to quantify the distance between two distributions by comparing all of their moments. It can be efficiently implemented using the kernel trick.\par
+Let k($ \cdot $ , $ \cdot $ ) be any positive definite kernel, the MMD between p and q is\par
+\begin{equation}
+     D_{MMD}(q\vert \vert p ) =  \mathbb{E} _{p ( z ) ,p ( z' ) } [ k ( z, z' ) ] - 2 \mathbb{E} _{q ( z ) ,p ( z' ) } [ k ( z, z' ) ] +  \mathbb{E} _{q ( z ) ,q ( z' ) } [ k ( z, z' ) ]
+\end{equation}
+
+
+and $D_{MMD}=\ 0$ if and only if p = q. \par
+We can rewrite the $L_{InfoVAE}$ objective into an equivalent form that we can optimize more efficiently
+\begin{equation}
+    \begin{split}
+        L_{InfoVAE} = \mathbb{E}_{pD(x)}\mathbb{E}_{q _\varphi}(z|x)[\log p_\theta(x|z)] - &(1 - \alpha )\mathbb{E}_{pD(x)}D(q_\varphi(z|x)\vert \vert p(z))\\& - (\alpha + \lambda - 1)D(q_\varphi(z)\vert \vert p(z))
+    \end{split}
+\end{equation}
+We can use KL divergence to compute $\mathbb{E}_{pD(x)}D(q_\varphi(z|x)\vert \vert p(z))$. Since the last term $D(q_\varphi(z)\vert \vert p(z))$ is intractable to compute via KL-divergence we can estimate by MMD objective. Using the same architecture as used above in CVAE we train our model using this modified objective at $\alpha =-1, \lambda=5$.
+\subsubsection{Results:}
+The histograms for all the 32 temperatures are shown in this \href{https://drive.google.com/open?id=1pOg-3ly6BT3eb3F1LLKlDZvke_7NNTw9}{\textcolor[HTML]{1155CC}{\uline{Link}}}. Some of the results are shown below.
+%
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined2a000000.png}}
+        \caption{Temp = 0.1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined2a516129.png}}
+        \caption{Temp = 0.51}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined2a903226.png}}
+        \caption{Temp = 0.90}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined2a1096774.png}}
+        \caption{Temp = 1.09}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined2a1483871.png}}
+        \caption{Temp = 1.48}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined2a2000000.png}}
+        \caption{Temp = 2.00}
+    \end{subfigure}
+    \hfill
+    \caption{Histograms comparing MC and VAE samples at different temperatures. Green corresponds to distribution of original MC samples, and blue corresponds to MMD-VAE generated samples}
+\end{figure}
+\textit{1)\  Magnetization}\textbf{:\\
+}In terms of magnetization the results were more or less the same\par
+
+2) \textit{Magnetization direction\\
+}The problem of correlation has been completely removed as our latent variable learned to produce samples in all directions.\par
+
+3)\textit{Energy}\par
+
+There was better overlap between the distribution of energies. The distributions of samples produced overlapped perfectly till a temperature of 0.9 but for temperatures greater than this an offset in the values was generated.\par
+\vspace{\baselineskip}
+\subsubsection{Adversarial Autoencoder:}
+Adversarial autoencoders (AAE  \href{https://arxiv.org/pdf/1511.05644.pdf}{}\textcolor[HTML]{1155CC}{\uline{PAPER}}) use an adversarial discriminator to approximately minimize the Jensen-Shannon divergence between $q_{ \varphi  }(z)$ and $p(z)$.
+\begin{equation}
+   D_{JS} ( p \vert \vert q ) = 1/2 D_{KL} ( p \vert \vert m ) + 1/2 D_{KL} ( q \vert \vert m )
+\end{equation}
+where m $\sim$=  ( p + q ) /2
+\begin{FlushLeft}
+\textit{Architecture}
+\end{FlushLeft}\par
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 3 starts here %%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+	\begin{Center}
+		\includegraphics[width=4.96in,height=3.2in]{./media/image3.png}
+	\end{Center}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%% Figure/Image No: 3 Ends here %%%%%%%%%%%%%%%%%%%%
+
+\begin{FlushLeft}
+Basically The encoder tries to ensure that the aggregated posterior distribution \textit{q(z)} can fool the discriminative adversarial network into thinking that the hidden code q(z) comes from the true prior distribution p(z) and thereby minimizing the JS divergence between the distribution.
+\end{FlushLeft}\par
+
+
+\vspace{\baselineskip}
+\begin{FlushLeft}
+\textbf{Results: \href{https://drive.google.com/open?id=1NQrICBJTVvlPX1fSr1bGb68BN8iwCMni}{\textcolor[HTML]{1155CC}{\uline{Link}}}}
+\end{FlushLeft}\par
+
+\begin{figure}[h!]
+    \centering
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined3a000000.png}}
+        \caption{Temp = 0.1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined3a451613.png}}
+        \caption{Temp = 0.51}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined3a967742.png}}
+        \caption{Temp = 0.96}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined3a1419355.png}}
+        \caption{Temp = 1.41}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined3a1677419.png}}
+        \caption{Temp = 1.67}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}
+        \raisebox{-\height}{\includegraphics[width=\textwidth]{combined3a2000000.png}}
+        \caption{Temp = 2.00}
+    \end{subfigure}
+    \hfill
+    \caption{Histograms comparing MC and VAE samples at different temperatures. Green corresponds to distribution of original MC samples, and blue corresponds to AAE generated samples}
+\end{figure}
+
+\begin{itemize}
+    \item \textit{Magnetization}: The accuracy has decreased.\par
+    \item \textit{Magnetization direction}: The samples produced were highly correlated.
+    \item \textit{Energy}: The distributions always had an offset for all temperatures.\par
+\end{itemize}
+
+% \vspace{\baselineskip}
+% {\fontsize{14pt}{16.8pt}\selectfont \textbf{3) Stein variational gradient descent \href{https://arxiv.org/pdf/1608.04471.pdf}{\par}\textcolor[HTML]{1155CC}{\uline{Paper}\\
+% }}}
+
+% Tried to understand the mathematics behind it, but still has not tested this approach as still many concepts are unclear.\par
+
+\vspace{\baselineskip}
+Shifting from VAE to GAN’s\par
+
+The standard VAE objective had many problems of exploding Latent space and information preference problem. This objective function favours overfitting the samples and can be maximized even with a very inaccurate posterior inference. \par
+In order to remedy these problems different objective function were designed which tried to maximise the mutual information between output X and latent variable Z. MMD-VAE achieved good results but the distributions deviated at higher temperatures. This could be because of our Reconstruction error loss function which is log probability of a gaussian, which is almost the same as the squared error loss function but regularised by a variance. To determine the degree of randomness between two random configurations it is not a good option to measure with squared error loss function. Hence GAN could prove better as they don’t directly measure the euclidean distance between two samples.
+% \medskip
+
+% \begin{thebibliography}{9}
+% \bibitem{InfoVAE}
+% Shengjia Zhao, Jiaming Song, Stefano Ermon
+% \textit{InfoVAE}
+
+% \bibitem{einstein}
+% Albert Einstein.
+% \textit{Zur Elektrodynamik bewegter K{\"o}rper}. (German)
+% [\textit{On the electrodynamics of moving bodies}].
+% Annalen der Physik, 322(10):891–921, 1905.
+
+% \bibitem{knuthwebsite}
+% Knuth: Computers and Typesetting,
+% \\\texttt{http://www-cs-faculty.stanford.edu/\~{}uno/abcde.html}
+% \end{thebibliography}
+
+% \printbibliography
+\end{document}
