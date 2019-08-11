@@ -1,0 +1,37 @@
+.gitignore
+checkpoint
+DATA
+GAN_mnist.ckpt.data-00000-of-00001
+GAN_mnist.ckpt.index
+GAN_mnist.ckpt.meta
+GAN_mnist.py
+GANmodel.ckpt.data-00000-of-00001
+GANmodel.ckpt.index
+GANmodel.ckpt.meta
+out
+__pycache__
+Reports
+VAE_mnist.ckpt.data-00000-of-00001
+VAE_mnist.ckpt.index
+VAE_mnist.ckpt.meta
+VAE_xy.ckpt.data-00000-of-00001
+VAE_xy.ckpt.index
+VAE_xy.ckpt.meta
+(16, 16)lattices.pkl
+(8, 8)lattices.pkl
+88lattices.pkl
+VAE_xy2.ckpt.data-00000-of-00001
+VAE_xy2.ckpt.index
+VAE_xy2.ckpt.meta
+16by16dummylattices.pkl
+energy_vs_temp.png
+mag_dir_vs_temp.png
+mag_vs_temp.png
+VAE_xy_16by16.ckpt.data-00000-of-00001
+VAE_xy_16by16.ckpt.index
+VAE_xy_16by16.ckpt.meta
+energy_vs_LV.png
+*.png
+*.gz
+*.meta
+*.pkl
